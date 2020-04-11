@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .header{
+            height: 300px;
+            background-color: slateblue;
+            text-align: center;
+        }
+        .content{
+            display: flex;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: -100px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .card{
+            border: 1px solid silver;
+            background-color: white;
+            width: 195px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 15px;
+            margin: 5px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .profileimg{
+            width: 55%;
+            border: 1px solid #e0e0e0;
+            border-radius: 50%;
+        }
+        .title{
+            margin: 5px 5px 5px 0px;
+            padding: 0 5px;
+        }
+        .subtitle{
+            margin: 5px 5px 10px 5px;
+            padding: 0 5px;
+            font-size: 70%;
+        }
+        .btn{
+            text-decoration: none;
+            font-size: 80%;
+            padding: 3px 15px;
+            color: gray;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+        .btn:hover{
+            background-color: black;
+            color: white;
+        }
+        .form{
+            max-width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 80px;
+        }
+        input{
+            padding: 5px 5px;
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+        button{
+            background-color: black;
+            color: white;
+            border: 1px solid black;
+            padding: 5px 25px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="form">
+                <input type="text" id="name" placeholder="Enter Name">
+                <input type="text" id="img" placeholder="Enter Image">
+                <input type="text" id="des" placeholder="Enter Designation">
+                <input type="text" id="link" placeholder="Enter Link">
+                <br><br>
+                <button id="submit">Add Data</button>
+            </div>
+            
+        </div>
+        <div class="content" id="data">
+            
+        </div>
+    </div>
+    <script>
+        var people=[
+            {
+                name: 'Vrijraj',
+                img: 'https://vrijraj.github.io/img/vrij.jpg',
+                designation:'xyz',
+                link:'https://google.com'
+            },
+            {
+                name: 'Nand',
+                img: 'https://media-exp1.licdn.com/dms/image/C4E03AQEDZLwED3-g7A/profile-displayphoto-shrink_800_800/0?e=1591833600&v=beta&t=LdrncxqOOpKs5iLbzYUfTTIqtkNm1K_a_IFGXVoOnjE',
+                designation:'xyz',
+                link:'https://google.com'
+            },
+            {
+                name: 'Bharat',
+                img: 'https://media-exp1.licdn.com/dms/image/C5103AQHmei0vZ-Lm3g/profile-displayphoto-shrink_800_800/0?e=1591833600&v=beta&t=6eNMBRrISu-PVvCnjfKjYd01BAm2UyPMUUmUdkeTWBA',
+                designation:'xyz',
+                link:'https://google.com'
+            },
+            {
+                name: 'Vrijraj 1',
+                img: 'https://vrijraj.github.io/img/vrij.jpg',
+                designation:'xyz',
+                link:'https://google.com'
+            },
+            {
+                name: 'Vrijraj 2',
+                img: 'https://vrijraj.github.io/img/vrij.jpg',
+                designation:'xyz',
+                link:'https://google.com'
+            }
+        ]
+        
+        document.getElementById('submit').addEventListener('click', addData)
+
+        function addData(){
+            var name1 = document.getElementById('name').value
+            var img1 = document.getElementById('img').value
+            var des1 = document.getElementById('des').value
+            var link1 = document.getElementById('link').value
+
+            if(name1.length>0 &&  des1.length>0 && link1.length>0){
+                var objtoadd = {
+                    name:name1,
+                    img:img1,
+                    designation:des1,
+                    link: link1
+                }
+                people.unshift(objtoadd)
+                printData()
+            }else{
+                alert('Not Empty')
+            }
+            
+        }
+
+        function printData(){
+            document.getElementById('data').innerHTML = ''
+            for(var i=0;i<people.length;i++){
+                document.getElementById('data').innerHTML += `
+                    <div class="card">
+                        <img src="${ people[i].img.length>0?people[i].img:'https://media-exp1.licdn.com/dms/image/C5103AQH9IQWW3c-J7w/profile-displayphoto-shrink_800_800/0?e=1591833600&v=beta&t=i0hEUpZl3QKMsSXydN0LX15PnC88zw4yXcYRgXRSWOM' }" class="profileimg" alt="">
+                        <p class="title">${people[i].name}</p>
+                        <p class="subtitle">${people[i].designation}</p>
+                        <a target="_blank" href="${people[i].link}" class="btn">Click Here</a>
+                        <a target="_blank" onClick="deleteData(${i})" class="btn">Delete</a>
+                    </div>
+                `
+            }
+        }
+
+        function deleteData(index){
+            if(confirm('Are you sure?')){
+                people.splice(index, 1)
+                printData()
+            }
+        }
+        printData()
+    </script>
+</body>
+</html>
